@@ -32,7 +32,7 @@ Postgres on Supabase with row-level security, Trigger.dev for scheduled jobs, Cl
 
 ## Setup
 
-Not yet written. Secrets are read from environment variables and are never committed; `.env.example` will list them once the foundation step begins.
+Not yet written. Secrets are read from environment variables and are never committed. Copy `.env.example` to `.env` and fill in the values as each service is set up.
 
 ## Licence
 
