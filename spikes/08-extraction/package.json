@@ -1,0 +1,13 @@
+{
+  "name": "spike-08-extraction",
+  "private": true,
+  "type": "module",
+  "description": "Throwaway prototype: the quarantined extraction call (fixed schema, no tools, no memory) run against synthetic benign and adversarial email.",
+  "scripts": {
+    "test": "node --env-file=../../.env run.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest",
+    "zod": "latest"
+  }
+}
