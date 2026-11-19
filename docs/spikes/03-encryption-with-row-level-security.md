@@ -41,7 +41,7 @@ Docker would not stay up on this machine, so the prototype starts its own Postgr
 
 - Supabase advises against pgsodium and transparent column encryption, both headed for deprecation. Supabase Vault protects disks and backups but anyone with the service role, the `postgres` role or dashboard SQL access can read its decrypted view. So per-person encryption has to be done by the application with the top key held outside Supabase, which is what the prototype does.
 - The service-role key bypasses row-level security entirely, and so does a direct connection as `postgres`.
-- Supabase is retiring the `anon` and `service_role` keys by the end of 2026 in favour of publishable and secret keys. `.env.example` currently names the old ones.
+- Supabase is retiring the `anon` and `service_role` keys by the end of 2026 in favour of publishable and secret keys. `.env.example` currently names the old ones. A check of the local `.env` on 2026-11-18 (types only, values not printed) found the project is already on the new keys, but the two values are under each other's names: the secret key sat in the entry named for the anon key. The entries were renamed to `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY` the same day, in `.env.example` and in the local `.env`, with each value under the name that matches its type.
 - Key services, for one key and about 3,000 unwraps a day: Azure Key Vault about $0.27 a month, Google Cloud KMS about $0.33, AWS KMS about $1.21 ($1 per key, 20,000 requests a month free). Cloudflare Secrets Store and Doppler cannot wrap or unwrap and are not key services.
 
 ## Decision
@@ -50,12 +50,12 @@ Docker would not stay up on this machine, so the prototype starts its own Postgr
 2. The worker reaches people's data only through the per-transaction, per-person path. The service-role (secret) key is not present in the worker's environment at all.
 3. Because the runner's environment variables were exposed in a real incident this month (spike 2), the worker's key-service credential is limited to unwrap, and its database login cannot bypass row-level security. A leaked worker environment then yields neither plaintext nor other people's rows without also defeating row-level security.
 4. Every table ships with a test that one person cannot read another's rows, plus one schema-wide test that fails if any table lacks forced row-level security. The prototype's checks become those tests.
-5. Start the Supabase project on the new publishable and secret keys and rename the entries in `.env.example` at the foundation step.
+5. Use Supabase's new publishable and secret keys, under entries named for them in `.env.example` (done on 2026-11-18).
 6. **Key service: AWS KMS**, for its native encryption context (the person-id binding is a first-class feature and can be required by policy), its per-action permissions (unwrap only), and its request log. It is about a dollar a month more than the cheapest option.
 
 ## Needs the owner
 
-AWS KMS costs about $1.21 a month and needs an AWS account. The brief names a key-management service but its running-cost figure does not include one, so this is a small spend beyond the listed costs and waits for a yes.
+**Approved by the owner on 2026-11-18:** AWS KMS at about $1.21 a month. Still needed from him at the foundation step: an AWS account, one key and one unwrap-only credential, created by following written steps, with the two values placed in `.env`.
 
 ## Still open
 

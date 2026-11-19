@@ -24,9 +24,9 @@ The two prototypes live in `../../spikes/`. They are throwaway code with synthet
 
 ## What the spikes change in the brief
 
-Proposed, not yet applied. The brief is the owner's document and stays as it is until he agrees.
+Agreed by the owner on 2026-11-18 and applied to `build-brief.md`.
 
-| Brief says | Spike result | Proposed wording |
+| Brief said | Spike result | Brief now says |
 |---|---|---|
 | Try Anthropic linked billing first; fallback is each person's API key | Linked billing is capped at 10 people without a review (spike 1) | Each person's API key is the launch route; linked billing is a later option |
 | Trigger.dev free tier; one dispatcher per job type fires every few minutes | The free plan rejects schedules faster than hourly (spike 2) | The tick comes from a Cloudflare Worker cron trigger; Trigger.dev runs each person's job |
@@ -40,10 +40,8 @@ Proposed, not yet applied. The brief is the owner's document and stays as it is 
 
 | What | Why | Needed by |
 |---|---|---|
-| Yes or no to AWS KMS at about $1.21 a month, and an AWS account | Beyond the running costs listed in the brief (spike 3) | Foundation step |
+| An AWS account, one key and one unwrap-only credential | The approved key service (spike 3) | Foundation step |
 | The production domain name | Passkeys are tied to it permanently (spike 9) | Before anyone adds a passkey |
-| Go-ahead to tune extraction on his own forwarded mail | Conventions forbid real data until he says so (spike 8) | Intake step |
-| Narrow or wide outlet list for news | A judgement about risk (spike 12) | Digest step |
 | Hands-on tests with a phone and real mailboxes | Listed at the end of spikes 4, 5, 6, 7 and 9 | As each step comes up |
 
 ## Answered by the owner
@@ -52,3 +50,8 @@ Proposed, not yet applied. The brief is the owner's document and stays as it is 
 |---|---|---|
 | 2026-11-18 | One thread or three lanes in Telegram (spike 5) | One thread |
 | 2026-11-18 | Whether anyone invited is under 18 (spike 1) | No |
+| 2026-11-18 | AWS KMS at about $1.21 a month (spike 3) | Yes |
+| 2026-11-18 | Tune extraction on his own forwarded mail (spike 8) | Yes, his own mail only |
+| 2026-11-18 | Narrow or wide outlet list for news (spike 12) | Wide, without the New York Times and Nature |
+| 2026-11-18 | Tick from a Cloudflare Worker or pay for Trigger.dev's Hobby plan (spike 2) | Cloudflare Worker for now |
+| 2026-11-18 | The changes to the brief listed above | Agreed; applied to `build-brief.md` |

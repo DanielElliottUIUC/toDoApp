@@ -64,5 +64,5 @@ Routing on consequence, as the brief words it, did the work. Every hostile email
 
 ## Still open
 
-- Tuning on real forwarded mail. Needs the owner's go-ahead to use his own mail, and should happen during the intake step before anyone else is invited.
+- Tuning on real forwarded mail. **Approved by the owner on 2026-11-18 for his own mail.** At the intake step he forwards 30 to 50 of his own emails, marks each resulting record right or wrong in the staging inbox, and the prompt, categories and checks are adjusted on those. The mail is stored encrypted, never committed and never logged. This does not extend to anyone else's mail.
 - An ablation and a larger, more varied attack set, at the intake step.

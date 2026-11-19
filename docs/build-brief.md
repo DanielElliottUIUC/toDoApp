@@ -1,6 +1,6 @@
 # Life-ops app: build brief
 
-Date: 17 November 2026. Owner: Daniel Elliott.
+Date: 17 November 2026. Amended 18 November 2026 after the spikes (see `docs/spikes/README.md`). Owner: Daniel Elliott.
 
 This brief is the complete instruction set for building the app. Every decision in it is final unless it appears under "Flagged to revisit". The evidence and sources behind each decision are in the companion file `Life ops app design research.md`; where the two differ, this brief wins.
 
@@ -37,7 +37,7 @@ All three talk to the same agent and the same data. An in-app chat thread mirror
 5. **Check-in.** Inside the morning message: sleep quality 0 to 10, mood or energy on five points, soreness only the day after a logged workout.
 6. **Gym.** The model proposes plan structure; fixed rules do progression and all load arithmetic. Log reps in reserve per working set. Readiness (sleep, mood or energy, soreness, last session's effort) nudges the day's session by one small step, is always overridable, and counts for little in the first weeks. Lighter weeks are triggered by stalled estimated max across two or more sessions plus several low-readiness days; they reduce volume and are never a full week off. Track weekly volume per muscle.
 7. **Digest.** A scheduled task the person can see, retime, pause and switch off section by section. Sections: weather, calendar, today's tasks, research papers, news, poetry, and later forwarded newsletters.
-   - **Research papers** come from several sources, arXiv among them (candidates: arXiv, OpenAlex, Semantic Scholar, bioRxiv and medRxiv, subject to each one's terms). Each paper is shown with its title, authors, link and the source's own abstract.
+   - **Research papers** come from several sources, arXiv among them (candidates: arXiv, OpenAlex, Semantic Scholar, bioRxiv and medRxiv, subject to each one's terms). Each paper is shown with its title, authors, link and, where the source's terms allow, the source's own abstract.
    - **News** is pulled programmatically, from publisher RSS feeds first and a news API where RSS falls short, by the topics the person chooses. Each item is shown as headline, outlet and link. The model does not summarise or rewrite news.
    - **Whitelisting is optional per person.** By default a person gets items from the full source set for their topics. They may turn on a whitelist of domains for papers, for news, or for both; when it is on, nothing from outside the list appears.
    - New items are fetched once nightly for everyone and ranked per person. Poetry uses public-domain poems unless a licensed source is confirmed.
@@ -68,7 +68,7 @@ All three talk to the same agent and the same data. An in-app chat thread mirror
 
 - **Default view: Day River.** A full-height vertical timeline of today, blocks sized by duration and coloured by life area, a moving now-line, a load bar on top, a tray of unscheduled items to drag onto the day, and one "replan from now" button that proposes a list of changes.
 - **The Deck** runs as the daily summary at the start and end of the day: one card at a time with four swipe directions (do, not now, hand to agent, drop), ending on a summary of the resulting day.
-- Delivered as a Home Screen web app with web push. No native app. Apple Shortcuts are an optional capture add-on.
+- Delivered as a Home Screen web app with web push. Web push is a best-effort nudge that opens the app; anything that must be seen or answered goes through Telegram or the in-app thread. No native app. Apple Shortcuts are an optional capture add-on.
 - The phone needs a connection. A quick capture made without signal is held locally and sent when signal returns; no other data lives only on the phone.
 
 ## Desktop
@@ -77,15 +77,15 @@ Reproduce the plan-review screen described under Modules 3. Add an intake queue,
 
 ## Stack and integrations
 
-- **Data and sign-in:** Postgres on Supabase Pro with row-level security on every table. Passkeys, with an emailed magic link as fallback; sign-up is closed and gated by invite token.
-- **Jobs:** Trigger.dev, free tier. One dispatcher per job type fires every few minutes, asks the database which people are due, and starts one independent run per person. User-set start cues run as one-off delayed jobs.
+- **Data and sign-in:** Postgres on Supabase Pro with row-level security on every table. Passkeys, with an emailed six-digit code as fallback; sign-up is closed and gated by invite token.
+- **Jobs:** Trigger.dev, free tier, runs each person's job. A Cloudflare Worker cron trigger ticks every minute, asks the database which people are due for each job type, and starts one independent run per person. User-set start cues run as one-off delayed jobs.
 - **Model:** the Claude Messages API with a hand-written tool loop. Route by job: cheapest model for extraction and consolidation, mid-tier for planning and chat, larger for weekly review. Each person can choose, since they pay. Show a spend meter by day and job type. Keep the model boundary provider-agnostic.
-- **Billing and keys:** try Anthropic linked billing first (each person approves the app and sets a monthly cap; no key is held). Fallback: each person's API key, encrypted with a per-user data key wrapped by a key-management service, entered on desktop only, never logged. A small key funded by the owner pays for shared public content (papers, food database, weather).
+- **Billing and keys:** each person's API key, encrypted with a per-user data key wrapped by a key-management service (AWS KMS), entered on desktop only, never logged. Anthropic linked billing is a later option; in beta it is capped at 10 people without an Anthropic review. A small key funded by the owner pays for shared public content (papers, food database, weather).
 - **Intake pipeline, six stages:** durable queue with the raw item kept encrypted; deterministic pre-processing; an extraction call with a fixed output format, no tools and no memory; validation in code; routing by consequence; a write that records its origin. Low-stakes records file themselves, medium ones file and appear in the next batch, and anything with an uncertain date, amount or person, or that would create a calendar block, waits in a staging inbox. Text found inside an email or web page is data and never an instruction.
 - **Email:** each person gets a private, revocable intake address (Cloudflare Email Routing into a Worker). They forward mail to it by hand or by rule. The app never reads a mailbox and never sends email as the person. No Gmail sign-in.
 - **Calendar:** read any calendar by ICS link. Publish a private, revocable ICS feed of task blocks that each person subscribes to once. Later: optional Google Calendar sign-in for writing blocks, and opt-in iCloud access. School Outlook stays read-only by ICS.
 - **Privacy:** envelope encryption for all content. Opt-in diary lock that only the person's passphrase opens, with a recovery code. No operator page shows another person's content. An append-only log of every agent and human read or action, visible to each person as a "what your assistant did" timeline with undo. A one-tap "pause the agent". Onboarding shows a consent screen naming Anthropic as the model provider and uses the four-sentence privacy promise quoted in the research file.
-- **Running cost:** about $25 a month plus a domain, excluding each person's own model usage.
+- **Running cost:** about $26 a month plus a domain, excluding each person's own model usage.
 
 ## Build sequence
 
@@ -106,6 +106,8 @@ Reproduce the plan-review screen described under Modules 3. Add an intake queue,
 Steps 2 to 5 form a product worth opening daily. Reach that point before starting step 6. Turn on at most two tracking modules for a new person.
 
 ## Spikes to run first
+
+Run on 17 and 18 November 2026. Results are in `docs/spikes/`, one file per spike.
 
 - **Linked billing:** can a small private app register during the beta; token lifetimes; whether prompts are visible in the owner's Console.
 - **Job runner:** does Trigger.dev's free compute credit cover the group's daily runs; behaviour on a missed tick.
@@ -129,7 +131,9 @@ Steps 2 to 5 form a product worth opening daily. Reach that point before startin
 | No offline sync on the phone | People regularly log where there is no signal and the local capture queue is not enough |
 | Web app, not native | People ask for Lock Screen widgets, Apple Health data or saving from the share sheet |
 | Telegram as the only messenger | A specific person refuses to install it |
-| Trigger.dev free tier | The compute credit does not cover daily runs |
+| Trigger.dev free tier with the tick from a Cloudflare Worker | Measured compute passes about $3.50 a month, one-day logs make a fault impossible to diagnose, or the outside tick proves unreliable. The paid plan is $10 a month |
+| Each person's own API key, not linked billing | Linked billing leaves beta, or the group settles at ten or fewer |
+| News from the wider set of publisher feeds | A publisher asks for its feed to be removed (switch that outlet off), or a publisher's terms change |
 
 ## Not in scope
 
