@@ -54,20 +54,19 @@ A webhook needs an HTTPS address on port 443, 80, 88 or 8443, and Telegram sends
 4. Buttons carry only a short opaque id, looked up on the server. The bot acknowledges every tap immediately and does the work afterwards, then removes or updates the buttons so a second tap cannot repeat the action. Every button also has a typed equivalent, as the research file requires.
 5. The webhook checks Telegram's secret header, stores the update in the durable queue and returns. Processing happens in the job runner. If the webhook was down, Telegram redelivers for 24 hours.
 6. Diary and other sensitive text stay out of Telegram, as the brief says; this spike confirms why.
-7. Whether to use three lanes or one thread is a question of feel and is put to the owner below. The code keeps a "lane" on every outgoing message either way, so the choice can change without rework.
+7. The bot launches as one thread, which is the owner's choice (below). The code still keeps a "lane" on every outgoing message, so lanes can be switched on later without rework.
 
 ## Needs the owner
 
-**A taste question, not urgent (the bot is build step 3):** one single chat thread, or three lanes inside it (Capture, Reminders, Digest)? My recommendation is **one thread to start**: a relative who types a thought does not have to pick a lane first, and "calm and sparse" is easier to keep in one place. Lanes can be switched on later.
+**Answered by the owner on 2026-11-18: one thread.** The question was one single chat thread, or three lanes inside it (Capture, Reminders, Digest). One thread means a relative who types a thought does not have to pick a lane first, and "calm and sparse" is easier to keep in one place. Lanes can be switched on later.
 
 **Hands-on, at the intake step, once a bot token exists:**
 
 1. Create the bot in BotFather and put its token in `.env`.
 2. Open the connect link from a fresh Telegram account and confirm only a Start button is shown and the link completes.
 3. Tap a button on a test message; confirm the buttons vanish and the reply arrives.
-4. If lanes are wanted: turn on Threaded mode and look at three lanes on the iPhone.
-5. Tap a link from the bot and note which browser opens.
+4. Tap a link from the bot and note which browser opens.
 
 ## Still open
 
-How threaded mode looks and behaves on an iPhone, and whether notifications name the lane. Only matters if lanes are chosen.
+How threaded mode looks and behaves on an iPhone, and whether notifications name the lane. Only matters if lanes are switched on later.

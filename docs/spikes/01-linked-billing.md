@@ -64,4 +64,4 @@ The model boundary stays provider-agnostic and billing sits behind one interface
 
 - Whether the OAuth apps option appears for a new individual organisation, and what the review asks for. Only an attempt in the owner's Console can show this. Not needed for launch.
 - With stored keys, requests run in each person's own organisation, so that person's retention settings apply. The privacy promise's third sentence ("Anthropic keeps it up to 30 days") should be re-read against Anthropic's commercial retention policy when the onboarding copy is written. This spike did not find a contradiction; one research note suggested one and on checking it was a misreading of a sentence about feature-level storage.
-- The Usage Policy defines a minor as under 18 and points products that serve minors to extra safeguards. Whether anyone invited is under 18 is a question for the owner.
+- The Usage Policy defines a minor as under 18 and points products that serve minors to extra safeguards. **Answered by the owner on 2026-11-18: nobody invited is under 18.** If that changes, this needs revisiting before that person is invited.

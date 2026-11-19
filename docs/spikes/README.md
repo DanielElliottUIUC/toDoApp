@@ -43,7 +43,12 @@ Proposed, not yet applied. The brief is the owner's document and stays as it is 
 | Yes or no to AWS KMS at about $1.21 a month, and an AWS account | Beyond the running costs listed in the brief (spike 3) | Foundation step |
 | The production domain name | Passkeys are tied to it permanently (spike 9) | Before anyone adds a passkey |
 | Go-ahead to tune extraction on his own forwarded mail | Conventions forbid real data until he says so (spike 8) | Intake step |
-| One thread or three lanes in Telegram | A question of feel (spike 5) | Intake step |
 | Narrow or wide outlet list for news | A judgement about risk (spike 12) | Digest step |
-| Whether anyone invited is under 18 | Anthropic's usage policy asks for extra safeguards (spike 1) | Before inviting |
 | Hands-on tests with a phone and real mailboxes | Listed at the end of spikes 4, 5, 6, 7 and 9 | As each step comes up |
+
+## Answered by the owner
+
+| Date | Question | Answer |
+|---|---|---|
+| 2026-11-18 | One thread or three lanes in Telegram (spike 5) | One thread |
+| 2026-11-18 | Whether anyone invited is under 18 (spike 1) | No |
