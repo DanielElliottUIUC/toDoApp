@@ -1,0 +1,13 @@
+{
+  "name": "spike-03-encryption-rls",
+  "private": true,
+  "type": "module",
+  "description": "Throwaway prototype: envelope encryption with per-user keys on top of Postgres row-level security. Synthetic data only.",
+  "scripts": {
+    "test": "node run.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.0",
+    "embedded-postgres": "*"
+  }
+}
