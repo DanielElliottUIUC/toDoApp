@@ -2,7 +2,7 @@
 
 A personal life-ops app for a small invite-only group of family and friends. Each person gets one AI agent with a chief-of-staff character that plans their tasks, prepares work, reminds them and pushes back when they overcommit.
 
-**Status:** specification complete, nothing built yet. The first work is the technical spikes listed in the build brief.
+**Status:** the spikes (step 1) are done and the foundation (step 2) is in progress. The data layer is built and tested; nothing is deployed and there is no app to open yet.
 
 ## What it does
 
@@ -24,6 +24,8 @@ A personal life-ops app for a small invite-only group of family and friends. Eac
 - [`docs/build-brief.md`](docs/build-brief.md): the specification. Read this first.
 - [`docs/design-research.md`](docs/design-research.md): the evidence and sources behind each decision.
 - [`docs/decisions.md`](docs/decisions.md): technical decisions made during the build.
+- [`docs/spikes/`](docs/spikes/README.md): results of the pre-build spikes.
+- [`docs/development.md`](docs/development.md): repository layout and how to run the checks.
 - [`CLAUDE.md`](CLAUDE.md): working rules and hard constraints for coding agents.
 
 ## Stack

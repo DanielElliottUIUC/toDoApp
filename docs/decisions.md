@@ -4,6 +4,26 @@ Technical decisions made during the build, newest first. Each entry has the date
 
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-11-18 | A model with no price on file is an error when spend is recorded, never a zero | A meter that silently reads low is worse than none |
+| 2026-11-18 | A price takes effect at midnight UTC on its date | The answer must not depend on where the server or the person is; a test caught this depending on the local time zone |
+| 2026-11-18 | Quiet hours hold everything the app starts except a start cue | The person chose that time themselves; to be confirmed with the owner |
+| 2026-11-18 | At the soft cap breakouts stop and wait for the next batch; at the hard cap nothing the app starts goes out until tomorrow's first batch | The brief names the caps but not what happens at each; three batches and two breakouts exactly reach the soft cap of 5 |
+| 2026-11-18 | Message caps count only messages the app starts; a reply to something the person just said is never counted or held | The caps exist to limit interruptions, and a reply is not one |
+| 2026-11-18 | The morning and evening batches go even with nothing queued; the afternoon batch is silent when empty | The brief says the afternoon slot stays silent when empty and gives the other two their own content |
+| 2026-11-18 | Message rules are pure functions with no database and no clock, tested one rule at a time | Every cap, quiet-hours and batch rule can be read and checked on its own |
+| 2026-11-18 | A run more than three hours late is marked expired and the schedule moves on | A morning message at 5pm is worse than none; the lateness is a setting per schedule |
+| 2026-11-18 | A job's failure is recorded as a short fixed code, never the error's message | Error messages can carry content, and content must not reach a log |
+| 2026-11-18 | A job runs in three transactions: claim, work, outcome | A failure rolls the work back without losing the record that it was tried |
+| 2026-11-18 | The job runner honours "pause the agent" twice: the tick skips the person, and a run already started does nothing | The switch must work even for a run handed over a moment before it was flipped |
+| 2026-11-18 | Audit entries are written per action (a job run, a key use, an invite), and refuse nested values and strings over 64 characters | Keeps the log readable and makes it hard to put content in it by accident |
+| 2026-11-18 | Accounts are gated by a "before user created" hook that looks for an open invitation by email; only the hash of an invite token is stored | Works whatever the sign-up toggle says; a leaked database yields no usable invite links |
+| 2026-11-18 | New accounts get their profile, message preferences, three batch schedules and first audit entry from a database trigger | The new person has no session yet, and nothing should depend on the app remembering to do it |
+| 2026-11-18 | The job runner and the tick are separate database roles created without a login; their passwords are set by hand from the environment | No credential in a migration, and each role can do only its own job |
+| 2026-11-18 | Every migration revokes Supabase's default grants on each table and function and grants back one by one; the signed-out role gets nothing | Supabase grants new tables and functions to every role by default, leaving row-level security as the only barrier |
+| 2026-11-18 | Content encryption uses WebCrypto (AES-256-GCM), with data keys held as non-extractable key objects | Runs unchanged in Node and edge runtimes; a key in memory cannot be serialised by accident |
+| 2026-11-18 | Tests run the real migrations on an embedded Postgres with a small stand-in for Supabase's roles and auth schema | Docker will not stay up on the development machine; the stand-in reproduces Supabase's default grants so the tests see what production sees |
+| 2026-11-18 | Checks run on every pull request in UTC | A different zone from the development machine exposes anything that depends on local time |
+| 2026-11-18 | The schema is plain SQL in `supabase/migrations`, and domain logic is a framework-free TypeScript package, `packages/core`, in an npm workspace | The database rules are the security boundary and should be readable as SQL; the web app, job runner and tick all share one tested core |
 | 2026-11-18 | Environment entries for Supabase are named `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY`, replacing the anon and service-role names | The project is on the new key types, and under the old names the two values had been entered the wrong way round |
 | 2026-11-18 | News launches with the wide outlet set, without the New York Times and Nature (the owner's choice) | Those two publishers' terms lean against a shared app; the rest are personal-use and unclear (spike 12) |
 | 2026-11-18 | News is publisher RSS only at launch; a news API (GNews free tier) is added only when a person picks a topic no feed covers | All 20 working feeds give headline, link and date at no cost; NewsAPI.org's free plan forbids production use and GDELT failed every live request (spike 12) |
