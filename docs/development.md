@@ -7,6 +7,7 @@
 | `supabase/migrations/` | The database schema, as plain SQL. The source of truth for tables, row-level security and database functions. |
 | `packages/core/` | Domain logic with no framework in it: encryption, per-person database access, the audit log, the job queue, message rules, key storage and spend costing. |
 | `packages/core/test/` | Tests. They run the real migrations against a throwaway Postgres. |
+| `scripts/` | One-off operator scripts. `setup-database.mjs` prepares the hosted database; its test runs it end to end against a local stand-in. |
 | `spikes/` | Throwaway prototypes from build step 1. Not part of the app. |
 | `docs/` | The brief, the research, spike results and the decision log. |
 
