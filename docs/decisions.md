@@ -4,6 +4,8 @@ Technical decisions made during the build, newest first. Each entry has the date
 
 | Date | Decision | Reason |
 |---|---|---|
+| 2026-11-18 | Environment entries for Supabase are renamed to `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY` at the foundation step | The project is on the new key types, and under the old names the two values had been entered the wrong way round |
+| 2026-11-18 | News launches with the wide outlet set, without the New York Times and Nature (the owner's choice) | Those two publishers' terms lean against a shared app; the rest are personal-use and unclear (spike 12) |
 | 2026-11-18 | News is publisher RSS only at launch; a news API (GNews free tier) is added only when a person picks a topic no feed covers | All 20 working feeds give headline, link and date at no cost; NewsAPI.org's free plan forbids production use and GDELT failed every live request (spike 12) |
 | 2026-11-18 | News items store headline, link, outlet, date, section and tags only; article text and images in feeds are discarded on arrival | The brief shows headline, outlet and link, and several publishers bar storing more (spike 12) |
 | 2026-11-18 | News is shown with headline and link exactly as supplied and the outlet named, kept seven days, with a per-source off switch | Meets the strictest explicit publisher conditions and lets one outlet be removed on request (spike 12) |
@@ -38,7 +40,7 @@ Technical decisions made during the build, newest first. Each entry has the date
 | 2026-11-17 | The worker reaches people's data only inside one transaction scoped to one person as the `authenticated` role; the service-role key is not in the worker's environment | Row-level security then applies to the worker exactly as to a signed-in person (spike 3) |
 | 2026-11-17 | The single cross-person query is one function that returns due person ids and nothing else | The dispatcher must ask who is due; this keeps "no query may read across users" true for content (spike 3) |
 | 2026-11-17 | The worker's key-service credential can only unwrap and its database login cannot bypass row-level security | Trigger.dev disclosed on 1 November 2026 that environment variables were read for some customers (spikes 2, 3) |
-| 2026-11-17 | Key service is AWS KMS, pending the owner's yes on about $1.21 a month | Native encryption context, unwrap-only permissions and a request log (spike 3) |
+| 2026-11-17 | Key service is AWS KMS at about $1.21 a month (approved by the owner on 2026-11-18) | Native encryption context, unwrap-only permissions and a request log (spike 3) |
 | 2026-11-17 | Every table ships with a cross-person denial test, plus one schema-wide test that fails if any table lacks forced row-level security | Makes the hard constraint mechanical (spike 3) |
 | 2026-11-17 | Use Supabase's new publishable and secret keys from the start | The `anon` and `service_role` keys are being retired at the end of 2026 (spike 3) |
 | 2026-11-17 | Stay on Trigger.dev's free plan; the every-minute tick comes from a Cloudflare Worker cron trigger that asks Postgres who is due and starts one run per person | The free plan rejects schedules faster than hourly; this keeps the dispatcher pattern at no cost (spike 2) |

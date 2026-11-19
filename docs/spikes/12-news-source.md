@@ -74,14 +74,14 @@ Every usable option is free, so news adds nothing to running costs.
 
 ## Needs the owner
 
-**Which outlets to include.** This is a judgement about risk, not a technical one, so it is the owner's:
+**Answered by the owner on 2026-11-18: the wide set.** The question was which outlets to include, a judgement about risk and so the owner's:
 
 - **Narrow:** only the four whose terms clearly allow it (NPR, ESPN, Financial Times, STAT). Safe and thin: no general world news beyond NPR, little technology.
-- **Wide (recommended):** those four plus the outlets whose terms are personal-use and unclear (BBC, The Guardian, Washington Post, Wall Street Journal, Bloomberg, The Economist, Politico, Ars Technica, The Verge, Wired, MIT Technology Review, Al Jazeera, Science), under the display rules above. **Leave out the New York Times and Nature**, whose terms lean against it.
+- **Wide (chosen):** those four plus the outlets whose terms are personal-use and unclear (BBC, The Guardian, Washington Post, Wall Street Journal, Bloomberg, The Economist, Politico, Ars Technica, The Verge, Wired, MIT Technology Review, Al Jazeera, Science), under the display rules above. **Leave out the New York Times and Nature**, whose terms lean against it.
 
-The recommendation is the wide set: the app shows exactly what a feed reader shows, to a handful of invited people, with no ads, no archive and an off switch per outlet.
+The reasoning for the wide set: the app shows exactly what a feed reader shows, to a handful of invited people, with no ads, no archive and an off switch per outlet.
 
-Not needed until the digest is built (step 8).
+**Ways to extend it later**, none of them in the brief yet (see `docs/later.md`): more outlets, since adding one is a line in the feed list; local papers and specialist sites, most of which have feeds; a person's own feed addresses; and GNews for topics no feed covers.
 
 ## Still open
 

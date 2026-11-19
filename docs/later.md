@@ -11,3 +11,5 @@ Ideas that are not in the build brief. Nothing here is built until it is moved i
 | Grow the poetry collection from Standard Ebooks repositories | Spike 11 |
 | Europe PMC as a biomedical journal source, once abstract rights are clear | Spike 13 |
 | Semantic Scholar as a paper source, once its licence position is clear | Spike 13 |
+| Let a person add their own feed addresses to the news digest | Spike 12 |
+| Local papers and specialist sites added to the shared news feed list | Spike 12 |
