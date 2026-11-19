@@ -83,6 +83,16 @@ RESEND_API_KEY=
 TELEGRAM_BOT_TOKEN=
 ```
 
+### When the six are done
+
+Say so in chat. The first thing run is one command, which applies the schema to the hosted database, gives the two app database roles their logins, writes their connection strings into `.env` and checks that both roles behave as the design requires:
+
+```
+node --env-file=.env scripts/setup-database.mjs
+```
+
+It prints what it did and never a password, key or connection string. It is safe to run again.
+
 ## Part B: can wait
 
 Neither blocks building. Both are needed before the app holds anyone's real data or is opened daily.
