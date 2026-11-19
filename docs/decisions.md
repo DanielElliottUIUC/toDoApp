@@ -4,7 +4,7 @@ Technical decisions made during the build, newest first. Each entry has the date
 
 | Date | Decision | Reason |
 |---|---|---|
-| 2026-11-18 | Environment entries for Supabase are renamed to `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY` at the foundation step | The project is on the new key types, and under the old names the two values had been entered the wrong way round |
+| 2026-11-18 | Environment entries for Supabase are named `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY`, replacing the anon and service-role names | The project is on the new key types, and under the old names the two values had been entered the wrong way round |
 | 2026-11-18 | News launches with the wide outlet set, without the New York Times and Nature (the owner's choice) | Those two publishers' terms lean against a shared app; the rest are personal-use and unclear (spike 12) |
 | 2026-11-18 | News is publisher RSS only at launch; a news API (GNews free tier) is added only when a person picks a topic no feed covers | All 20 working feeds give headline, link and date at no cost; NewsAPI.org's free plan forbids production use and GDELT failed every live request (spike 12) |
 | 2026-11-18 | News items store headline, link, outlet, date, section and tags only; article text and images in feeds are discarded on arrival | The brief shows headline, outlet and link, and several publishers bar storing more (spike 12) |

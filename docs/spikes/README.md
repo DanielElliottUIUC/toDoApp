@@ -42,7 +42,6 @@ Agreed by the owner on 2026-11-18 and applied to `build-brief.md`.
 |---|---|---|
 | An AWS account, one key and one unwrap-only credential | The approved key service (spike 3) | Foundation step |
 | The production domain name | Passkeys are tied to it permanently (spike 9) | Before anyone adds a passkey |
-| The two Supabase values in `.env` moved under the right names | The secret key is currently in the entry named for the anon key (spike 3) | Foundation step |
 | Hands-on tests with a phone and real mailboxes | Listed at the end of spikes 4, 5, 6, 7 and 9 | As each step comes up |
 
 ## Answered by the owner
