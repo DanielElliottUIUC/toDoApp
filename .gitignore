@@ -10,6 +10,9 @@ build/
 .next/
 .turbo/
 
+# Scratch files the Supabase CLI writes
+supabase/.temp/
+
 # Local tooling
 .DS_Store
 *.log
